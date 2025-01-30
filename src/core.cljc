@@ -1,5 +1,7 @@
 (ns core
-  (:require [graph.unweighted]))
+  (:require
+    [graph.unweighted]
+    [graph.weighted]))
 
 (def seq-graph-dfs graph.unweighted/seq-graph-dfs)
 (def seq-graph-bfs graph.unweighted/seq-graph-bfs)

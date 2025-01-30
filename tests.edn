@@ -1,0 +1,18 @@
+#kaocha/v1 {:tests                [{:id           :unit
+                                    :type         :kaocha.type/clojure.test
+                                    :ns-patterns  ["-test$"]
+                                    :source-paths ["src"]
+                                    :test-paths   ["test"]
+                                    :focus-meta   [:focus]
+                                    :skip-meta    [:ignored :ignore :skip]}]
+            :fail-fast?           false
+            :watch?               false
+            :color?               true
+            :capture-output?      true
+            :reporter             [kaocha.report/documentation]
+            :plugins              [:hooks]
+            :kaocha.hooks/pre-run [;Clears output and scroll-back between test runs
+                                   (fn [test-plan]
+                                     (print "\u001b[2J\u001b[H\033[3J")
+                                     (flush)
+                                     test-plan)]}

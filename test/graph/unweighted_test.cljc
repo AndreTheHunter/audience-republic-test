@@ -1,6 +1,7 @@
 (ns graph.unweighted-test
-  (:require [clojure.test :refer [deftest is]]
-            [graph.unweighted :refer :all]))
+  (:require
+    [clojure.test :refer [deftest is]]
+    [graph.unweighted :refer :all]))
 
 (def graph {:1 [:2 :3]
             :2 [:4]
