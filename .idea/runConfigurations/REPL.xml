@@ -2,6 +2,7 @@
   <configuration default="false" name="REPL" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
     <option name="configVersion" value="1" />
     <option name="displayName" value="REPL" />
+    <option name="execution" value="LEININGEN" />
     <module name="audience-republic-test" />
     <option name="options" />
     <option name="profiles" />

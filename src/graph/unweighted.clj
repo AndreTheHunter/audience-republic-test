@@ -1,5 +1,6 @@
 (ns graph.unweighted
-  #?(:clj (:import (clojure.lang PersistentQueue))))
+  (:import
+    (clojure.lang PersistentQueue)))
 
 (defn- rec-seq [graph explored frontier]
   (lazy-seq
@@ -16,4 +17,4 @@
   (rec-seq graph #{start} (conj empty-frontier start)))
 
 (def seq-graph-dfs (partial seq-graph []))
-(def seq-graph-bfs (partial seq-graph #?(:clj PersistentQueue/EMPTY)))
+(def seq-graph-bfs (partial seq-graph PersistentQueue/EMPTY))
