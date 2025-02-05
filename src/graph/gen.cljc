@@ -4,7 +4,7 @@
 
 (defn make-graph
   ([] (make-graph 10))
-  ([size] (make-graph size (dec size)))
+  ([size] (make-graph size (* 2 size)))
   ([size sparseness]
    {:pre [(integer? size)
           (<= 0 size)
