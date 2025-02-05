@@ -51,5 +51,5 @@
             to (rand-nth verts)]
         (spy/pprint graph from to)
         (spy/pprint (shortest-path graph from to))
-        ;uncomment to see output
+        ;uncomment to see output in kaocha
         (comment (is false))))))

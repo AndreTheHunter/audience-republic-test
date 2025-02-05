@@ -4,40 +4,38 @@
     [clojure.test :refer :all]
     [com.rpl.specter :as sp]
     [graph.gen :refer :all]
-    [io.jesi.customs.spy :as spy]
     [io.jesi.customs.strict :refer [thrown-with-msg?]])
-  (:import (java.util.regex Pattern)))
+  (:import
+    (java.util.regex Pattern)))
 
 (defn- test-make-graph [size sparseness]
   (testing (str "size: " size " sparseness: " sparseness)
-    (spy/enabled
-      (spy/prn size sparseness)
-      (let [graph (spy/ppeek (make-graph size sparseness))
-            graph-keys (set (keys graph))]
+    (let [graph (make-graph size sparseness)
+          graph-keys (set (keys graph))]
 
-        (testing "has the expected number of vertices"
-          (is (= size (count graph))))
+      (testing "has the expected number of vertices"
+        (is (= size (count graph))))
 
-        (testing "has all vertices"
-          (let [expected-vertices (->> (range 1 (inc size))
-                                       (map (comp keyword str))
-                                       (set))]
-            (is (= expected-vertices graph-keys))))
+      (testing "has all vertices"
+        (let [expected-vertices (->> (range 1 (inc size))
+                                     (map (comp keyword str))
+                                     (set))]
+          (is (= expected-vertices graph-keys))))
 
-        (testing "all nodes are connected"
-          ;TODO check all the nodes https://www.geeksforgeeks.org/check-if-a-directed-graph-is-connected-or-not/
-          (let [destinations (->> graph
-                                  (sp/select [sp/MAP-VALS sp/ALL sp/FIRST])
-                                  (set))
-                edgeless (->> graph (sp/select [sp/ALL (comp empty? second) sp/FIRST]))]
-            (is (every? destinations edgeless))))
+      (testing "all nodes are connected"
+        ;TODO check all the nodes https://www.geeksforgeeks.org/check-if-a-directed-graph-is-connected-or-not/
+        (let [destinations (->> graph
+                                (sp/select [sp/MAP-VALS sp/ALL sp/FIRST])
+                                (set))
+              edgeless (->> graph (sp/select [sp/ALL (comp empty? second) sp/FIRST]))]
+          (is (every? destinations edgeless))))
 
-        (when (pos-int? size)
-          (testing "has the expected number of edges"
-            (let [edge-count (->> graph
-                                  (sp/select [sp/MAP-VALS sp/ALL])
-                                  (count))]
-              (is (= sparseness edge-count)))))))))
+      (when (pos-int? size)
+        (testing "has the expected number of edges"
+          (let [edge-count (->> graph
+                                (sp/select [sp/MAP-VALS sp/ALL])
+                                (count))]
+            (is (= sparseness edge-count))))))))
 
 (defn- ^Pattern re-literal [s]
   (Pattern/compile (Pattern/quote s)))

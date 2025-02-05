@@ -4,13 +4,13 @@
 
 ## Testing
 
-Using [Just](https://github.com/casey/just):
+In [watch mode](https://cljdoc.org/d/lambdaisland/kaocha/1.91.1392/doc/7-watch-mode) using [Just](https://github.com/casey/just):
 
 ```sh
 just test
 ```
 
-Or:
+Or without watch:
 
 ```sh
 lein kaocha
